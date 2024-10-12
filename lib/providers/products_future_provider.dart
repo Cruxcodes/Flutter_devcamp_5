@@ -5,3 +5,6 @@ import 'package:flutter_riverpod_1/repos/products_repo.dart';
 final productsFutureProvider = FutureProvider<List<Products>>((ref) async {
   return await ref.watch(productsRepoProvider).getProducts();
 });
+final categoryListFutureProvider = FutureProvider<List<dynamic>>((ref) async {
+  return await ref.watch(productsRepoProvider).getCategoryList();
+});

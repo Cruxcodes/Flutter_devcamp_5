@@ -5,6 +5,7 @@ import 'package:flutter_riverpod_1/networking/dio_client.dart';
 
 class ProductsRepo {
   final Ref ref;
+
   ProductsRepo(this.ref);
 
   Future<List<Products>> getProducts() async {
@@ -17,6 +18,22 @@ class ProductsRepo {
       }).toList();
       return products;
     } else {
+      return Future.error('failed to load prodcuts');
+    }
+  }
+
+  Future<List<dynamic>> getCategoryList() async {
+    try {
+      final response =
+          await ref.read(dioProvider).get(ApiEndpoints.GetCategoryListEndPoint);
+
+      List<dynamic> productsList = response.data;
+      // List<String> productsList =
+      //     response.data.map<Products>((product) {
+      //   return Products.fromJson(product);
+      // }).toList();
+      return productsList;
+    } catch (ex) {
       return Future.error('failed to load prodcuts');
     }
   }
